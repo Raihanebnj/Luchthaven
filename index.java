@@ -6,16 +6,35 @@ class Passagier {
     private String naam;
     private int leeftijd;
     private String adres;
+    private int gewicht;
 
-    public Passagier(String naam, int leeftijd, String adres) {
+    public Passagier(String naam, int leeftijd, String adres, int gewicht) {
         this.naam = naam;
         this.leeftijd = leeftijd;
         this.adres = adres;
+        this.gewicht = gewicht;
     }
 }
+
+class Vlucht {
+    private String vluchtCode;
+    private String bestemming;
+    private int aantalEconomyPlaatsen;
+    private int aantalBusinessPlaatsen;
+
+    public Vlucht(String vluchtCode, String bestemming, int aantalEconomyPlaatsen, int aantalBusinessPlaatsen) {
+        this.vluchtCode = vluchtCode;
+        this.bestemming = bestemming;
+        this.aantalEconomyPlaatsen = aantalEconomyPlaatsen;
+        this.aantalBusinessPlaatsen = aantalBusinessPlaatsen;
+    }
+}
+
 public class index {
     private static final Scanner ob = new Scanner(System.in);
     private static final List<Passagier> passagiers = new ArrayList<Passagier>();
+    private static final List<Vlucht> vlucht = new ArrayList<Vlucht>();
+
 public static void main(String[] args) {
     int beginKeuze;
 
@@ -62,6 +81,7 @@ public static void main(String[] args) {
 
 }
 private static void NieuwePassagier() {
+    int gewicht = 1;
     System.out.println("Naam: ");
     String naam = ob.nextLine();
     System.out.println("Leeftijd: ");
@@ -69,23 +89,43 @@ private static void NieuwePassagier() {
     ob.nextLine();
     System.out.println("Adres: ");
     String adres = ob.nextLine();
+    do {
+        System.out.println("Gewicht: ");
+         gewicht = ob.nextInt();
+        ob.nextLine();
+        if (gewicht > 30){
+            System.out.println("Bagage is te zwaar.");
+        }
+    }while(gewicht > 30);
 
-    passagiers.add(new Passagier(naam, leeftijd, adres));
-    System.out.println("Passagier is toegevoegd");
+
+    passagiers.add(new Passagier(naam, leeftijd, adres, gewicht));
+    System.out.println("Passagier is toegevoegd.");
 }
-public static void NieuweTicket() {
+private static void NieuweTicket() {
 
 }
-public static void NieuweVlucht() {
+private static void NieuweVlucht() {
+    System.out.println("Vlucht code: ");
+    String vluchtCode = ob.nextLine();
+    System.out.println("Bestemming: ");
+    String bestemming = ob.nextLine();
+    System.out.println("Aantal economy plaatsen: ");
+    int aantalEconomyPlaatsen = ob.nextInt();
+    System.out.println("Aantal business plaatsen: ");
+    int aantalBusinessPlaatsen = ob.nextInt();
+    ob.nextLine();
+
+    vlucht.add(new Vlucht(vluchtCode, bestemming, aantalEconomyPlaatsen, aantalBusinessPlaatsen));
+    System.out.println("Vlucht is toegevoegd.");
+}
+private static void Boarding(){
 
 }
-public static void Boarding(){
+private static void PersoneelToewijzen() {
 
 }
-public static void PersoneelToewijzen() {
-
-}
-public static void VluchtPrinten() {
+private static void VluchtPrinten() {
 
 }
 }
