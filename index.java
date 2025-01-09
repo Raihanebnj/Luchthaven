@@ -42,6 +42,7 @@ class Vlucht {
     private int aantalEconomyPlaatsen;
     private int aantalBusinessPlaatsen;
     private List<Passagier> passagiers;
+    private List<Staff> staffs;
 
     public Vlucht(String vluchtCode, String bestemming, int aantalEconomyPlaatsen, int aantalBusinessPlaatsen) {
         this.vluchtCode = vluchtCode;
@@ -49,6 +50,7 @@ class Vlucht {
         this.aantalEconomyPlaatsen = aantalEconomyPlaatsen;
         this.aantalBusinessPlaatsen = aantalBusinessPlaatsen;
         this.passagiers = new ArrayList<>();
+        this.staffs = new ArrayList<>();
     }
 
     public String getVluchtCode() {
@@ -73,6 +75,10 @@ class Vlucht {
             System.out.println("Er zijn geen plaatsen meer in deze klasse.");
             return false;
         }
+    }
+
+    public void boardedStaff(Staff staff) {
+        staffs.add(staff);
     }
 }
 
@@ -101,7 +107,11 @@ class Ticket {
 
 }
 
-
+class Staff extends Persoon {
+    public Staff(String naam, int leeftijd, String adres, int gewicht) {
+        super(naam, leeftijd, adres, gewicht);
+    }
+}
 
 public class index {
     private static final Scanner ob = new Scanner(System.in);
@@ -163,7 +173,7 @@ private static void NieuwePassagier() {
     System.out.println("Adres: ");
     String adres = ob.nextLine();
     do {
-        System.out.println("Gewicht: ");
+        System.out.println("Gewicht bagage: ");
          gewicht = ob.nextInt();
         ob.nextLine();
         if (gewicht > 30){
@@ -245,7 +255,35 @@ private static void Boarding(){
     }
 }
 private static void PersoneelToewijzen() {
+    int gewicht = 1;
 
+    System.out.println("Vlucth lijst: ");
+    for (int i = 0; i < vluchten.size(); i++) {
+        System.out.println(i + 1 + ". " + vluchten.get(i).getVluchtCode());
+    }
+    System.out.println("Kies welke vlucht: ");
+    int gekozenVlucht = ob.nextInt() - 1;
+    ob.nextLine();
+
+    System.out.println("Naam: ");
+    String naam = ob.nextLine();
+    System.out.println("Leeftijd: ");
+    int leeftijd = ob.nextInt();
+    ob.nextLine();
+    System.out.println("Adres: ");
+    String adres = ob.nextLine();
+    do {
+        System.out.println("Gewicht bagage: ");
+        gewicht = ob.nextInt();
+        ob.nextLine();
+        if (gewicht > 30){
+            System.out.println("Bagage is te zwaar.");
+        }
+    }while(gewicht > 30);
+
+    Staff staff = new Staff(naam, leeftijd, adres, gewicht);
+    vluchten.get(gekozenVlucht).boardedStaff(staff);
+    System.out.println("Personeel is toegewezen.");
 }
 private static void VluchtPrinten() {
 
