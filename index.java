@@ -30,6 +30,7 @@ public static void main(String[] args) {
         System.out.println("0. Stop");
 
         beginKeuze = ob.nextInt();
+        ob.nextLine();
 
         switch (beginKeuze) {
             case 1:
@@ -65,6 +66,7 @@ private static void NieuwePassagier() {
     String naam = ob.nextLine();
     System.out.println("Leeftijd: ");
     int leeftijd = ob.nextInt();
+    ob.nextLine();
     System.out.println("Adres: ");
     String adres = ob.nextLine();
 
