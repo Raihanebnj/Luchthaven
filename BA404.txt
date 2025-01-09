@@ -1,0 +1,11 @@
+Vlucht: BA404
+Bestemming: London
+---------------------------------------------------------------------------------------------
+Aantal Staffs: 1
+Staff: 
+1. Personeel / Leeftijd: 25 / Adres: dsqop / Gewicht bagage: 20
+---------------------------------------------------------------------------------------------
+Aantal Passagiers: 2
+Passagier:
+1. Raihane / Leeftijd: 21 / Adres: Test, Gewicht bagage: 30
+1. Test / Leeftijd: 20 / Adres: ps,n, Gewicht bagage: 15

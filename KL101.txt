@@ -1,0 +1,16 @@
+Vlucht: KL101
+Bestemming: AMS
+Aantal economy plaatsen over: 16
+Aantal business plaatsen over: 9
+---------------------------------------------------------------------------------------------
+Aantal Staffs: 1
+Staff: 
+1. Naam: Personeel / Leeftijd: 28 / Adres: sdqpiqnd / Gewicht bagage: 21
+---------------------------------------------------------------------------------------------
+Aantal Passagiers: 5
+Passagier:
+1. Naam: Raihane / Leeftijd: 21 / Adres: dpsqoj / Gewicht bagage: 20
+1. Naam: dispjd / Leeftijd: 20 / Adres: dspqoijd / Gewicht bagage: 20
+1. Naam: dpoqsjdpoj / Leeftijd: 19 / Adres: disqjd / Gewicht bagage: 10
+1. Naam: dpoqsjdpoj / Leeftijd: 19 / Adres: disqjd / Gewicht bagage: 10
+1. Naam: dsopqjdpo / Leeftijd: 30 / Adres: dsop,qd / Gewicht bagage: 29
