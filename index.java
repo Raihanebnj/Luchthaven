@@ -1,3 +1,6 @@
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -17,6 +20,18 @@ class Persoon {
 
     public String getNaam() {
         return naam;
+    }
+
+    public int getLeeftijd() {
+        return leeftijd;
+    }
+
+    public String getAdres() {
+        return adres;
+    }
+
+    public int getGewicht() {
+        return gewicht;
     }
 }
 
@@ -80,6 +95,31 @@ class Vlucht {
     public void boardedStaff(Staff staff) {
         staffs.add(staff);
     }
+
+    public void printVlucht() {
+        int i = 1;
+        try (PrintWriter writer = new PrintWriter(new File(vluchtCode + ".txt"))) {
+            writer.println("Vlucht: " + vluchtCode);
+            writer.println("Bestemming: " + bestemming);
+            writer.println("Aantal economy plaatsen over: " + aantalEconomyPlaatsen);
+            writer.println("Aantal business plaatsen over: " + aantalBusinessPlaatsen);
+            writer.println("---------------------------------------------------------------------------------------------");
+            writer.println("Aantal Staffs: " + staffs.size());
+            writer.println("Staff: ");
+            for (Staff staff : staffs) {
+                writer.println(i + ". Naam: " + staff.getNaam() + " / Leeftijd: " + staff.getLeeftijd() + " / Adres: " + staff.getAdres() + " / Gewicht bagage: " + staff.getGewicht());
+            }
+            writer.println("---------------------------------------------------------------------------------------------");
+            writer.println("Aantal Passagiers: " + passagiers.size());
+            writer.println("Passagier:");
+            for (Passagier passagier : passagiers) {
+                writer.println(i + ". Naam: " + passagier.getNaam() + " / Leeftijd: " + passagier.getLeeftijd() + " / Adres: " + passagier.getAdres() + " / Gewicht bagage: " + passagier.getGewicht());
+            }
+            System.out.println("Print werd gemaakt.");
+        }catch (Exception e) {
+            System.out.println("Er was een error.");
+        }
+    }
 }
 
 class Ticket {
@@ -124,8 +164,8 @@ public static void main(String[] args) {
     do {
         System.out.println("Kies wat u verder wilt doen");
         System.out.println("1. Nieuwe passagier");
-        System.out.println("2. Nieuwe ticket");
-        System.out.println("3. Nieuwe vlucht");
+        System.out.println("2. Nieuwe vlucht");
+        System.out.println("3. Nieuw ticket");
         System.out.println("4. Boarding");
         System.out.println("5. Personeel toewijzen");
         System.out.println("6. Print vlucht");
@@ -139,10 +179,10 @@ public static void main(String[] args) {
                 NieuwePassagier();
                 break;
             case 2:
-                NieuweTicket();
+                NieuweVlucht();
                 break;
             case 3:
-                NieuweVlucht();
+                NieuwTicket();
                 break;
             case 4:
                 Boarding();
@@ -185,7 +225,7 @@ private static void NieuwePassagier() {
     passagiers.add(new Passagier(naam, leeftijd, adres, gewicht));
     System.out.println("Passagier is toegevoegd.");
 }
-private static void NieuweTicket() {
+private static void NieuwTicket() {
     //Keuze passagier
     System.out.println("Passagier lijst: ");
     for (int i = 0; i < passagiers.size(); i++) {
@@ -286,7 +326,15 @@ private static void PersoneelToewijzen() {
     System.out.println("Personeel is toegewezen.");
 }
 private static void VluchtPrinten() {
+    System.out.println("Vlucth lijst: ");
+    for (int i = 0; i < vluchten.size(); i++) {
+        System.out.println(i + 1 + ". " + vluchten.get(i).getVluchtCode());
+    }
+    System.out.println("Kies welke vlucht: ");
+    int gekozenVlucht = ob.nextInt() - 1;
+    ob.nextLine();
 
+    vluchten.get(gekozenVlucht).printVlucht();
 }
 }
 
