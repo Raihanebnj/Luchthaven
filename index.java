@@ -41,26 +41,50 @@ class Vlucht {
     private String bestemming;
     private int aantalEconomyPlaatsen;
     private int aantalBusinessPlaatsen;
+    private List<Passagier> passagiers;
 
     public Vlucht(String vluchtCode, String bestemming, int aantalEconomyPlaatsen, int aantalBusinessPlaatsen) {
         this.vluchtCode = vluchtCode;
         this.bestemming = bestemming;
         this.aantalEconomyPlaatsen = aantalEconomyPlaatsen;
         this.aantalBusinessPlaatsen = aantalBusinessPlaatsen;
+        this.passagiers = new ArrayList<>();
     }
 
     public String getVluchtCode() {
         return vluchtCode;
+    }
+
+    public boolean boardedPassagier(Passagier passagier) {
+        Ticket ticket = passagier.getTicket();
+        if (!ticket.getVlucht().equals(this)) {
+            System.out.println("Passagier heeft geen ticket voor deze vlucht.");
+            return false;
+        }
+        if (ticket.getKlasse().equals("economy") && aantalEconomyPlaatsen > 0) {
+            aantalEconomyPlaatsen--;
+            passagiers.add(passagier);
+            return true;
+        }else if(ticket.getKlasse().equals("business") && aantalBusinessPlaatsen > 0) {
+            aantalBusinessPlaatsen--;
+            passagiers.add(passagier);
+            return true;
+        } else {
+            System.out.println("Er zijn geen plaatsen meer in deze klasse.");
+            return false;
+        }
     }
 }
 
 class Ticket {
     private Passagier passagier;
     private Vlucht vlucht;
+    private String ticketKlasse;
 
-    public Ticket (Passagier passagier, Vlucht vlucht) {
+    public Ticket (Passagier passagier, Vlucht vlucht, String ticketKlasse) {
         this.passagier = passagier;
         this.vlucht = vlucht;
+        this.ticketKlasse = ticketKlasse;
     }
 
     public Passagier getPassagier() {
@@ -70,7 +94,14 @@ class Ticket {
     public Vlucht getVlucht() {
         return vlucht;
     }
+
+    public String getKlasse() {
+        return ticketKlasse;
+    }
+
 }
+
+
 
 public class index {
     private static final Scanner ob = new Scanner(System.in);
@@ -160,11 +191,15 @@ private static void NieuweTicket() {
     }
     System.out.println("Kies welke vlucht: ");
     int gekozenVlucht = ob.nextInt() - 1;
+    ob.nextLine();
+
+    System.out.println("Welke Klasse (economy of business): ");
+    String ticketKlasse = ob.nextLine();
 
     Passagier passagier = passagiers.get(gekozenPassagier);
     Vlucht vlucht = vluchten.get(gekozenVlucht);
 
-    Ticket ticket = new Ticket(passagier, vlucht);
+    Ticket ticket = new Ticket(passagier, vlucht, ticketKlasse);
     passagier.reserveerTicket(ticket);
     System.out.println("Ticket is aangemaakt");
 }
@@ -184,7 +219,30 @@ private static void NieuweVlucht() {
     System.out.println("Vlucht is toegevoegd.");
 }
 private static void Boarding(){
+    //Keuze passagier
+    System.out.println("Passagier lijst: ");
+    for (int i = 0; i < passagiers.size(); i++) {
+        System.out.println(i + 1 + ". " + passagiers.get(i).getNaam());
+    }
+    System.out.println("Kies welke passagier: ");
+    int gekozenPassagier = ob.nextInt() - 1;
 
+    //Keuze vlucht
+    System.out.println("Vlucth lijst: ");
+    for (int i = 0; i < vluchten.size(); i++) {
+        System.out.println(i + 1 + ". " + vluchten.get(i).getVluchtCode());
+    }
+    System.out.println("Kies welke vlucht: ");
+    int gekozenVlucht = ob.nextInt() - 1;
+
+    Passagier passagier = passagiers.get(gekozenPassagier);
+    Vlucht vlucht = vluchten.get(gekozenVlucht);
+
+    if (vlucht.boardedPassagier(passagier)) {
+        System.out.println("Passagier is toegevoegd.");
+    }else {
+        System.out.println("Passagier is niet toegevoegd.");
+    }
 }
 private static void PersoneelToewijzen() {
 
